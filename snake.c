@@ -26,12 +26,12 @@ int main() {
     int gameOver=0;
     char board[LINES][COL];
     int** snake;
-    snake = (int **)malloc(50*sizeof(int *));
-    for (size_t i = 0; i < 50; i++)
+    snake = (int **)malloc(200*sizeof(int *));
+    for (size_t i = 0; i < 200; i++)
     {
         snake[i]=(int *)malloc(2);
     }
-    for (size_t i = 0; i < 50; i++)
+    for (size_t i = 0; i < 200; i++)
     {
         snake[i][0]=100;
         snake[i][1]=100;
@@ -59,14 +59,13 @@ int main() {
     int fruitey = rand() % COL;
 
     while (!quit) {
-        for (size_t i = 0; i <50; i++)
+        for (size_t i = 0; i <200; i++)
         {
             int shouldBreak=0;
-            for (size_t j = i+1; j <50; j++)
+            for (size_t j = i+1; j <200; j++)
             {
                 if (snake[i][0]==snake[j][0] && snake[i][1]==snake[j][1] && snake[i][0]!=100)
                     {
-                        score=j;
                         gameOver=1;
                         shouldBreak=1;
                         break;
@@ -86,7 +85,7 @@ int main() {
                 fruitey = rand() % COL;
             } while (board[fruitex][fruitey] == 'O');
 
-            for (size_t i = 0; i <50; i++)
+            for (size_t i = 0; i <200; i++)
             {
                 if (snake[i][0]==100)
                     {
@@ -116,6 +115,17 @@ int main() {
                 break;
             case 'q':  // Quit the game when 'q' is pressed
                 quit = 1;
+                break;
+            case 'r':  // replay the game when 'q' is pressed
+                score=0;
+                for (size_t i = 0; i < 200; i++)
+                {
+                    snake[i][0]=100;
+                    snake[i][1]=100;
+                }
+                snake[0][0]=LINES / 2;
+                snake[0][1]=COL / 2;
+                gameOver=0;
                 break;
 
             default:
@@ -156,7 +166,7 @@ int main() {
         }
         if (!gameOver)
         {
-            for (size_t i = 0; i <50; i++)
+            for (size_t i = 0; i <200; i++)
             {
                 if (snake[i][0]!=100)
                 {
